@@ -18,12 +18,12 @@ from PIL import Image,ImageOps
 import numpy as np
 
 def import_and_predict(image_data,model):
-    size=(60,40)
-    image=image_data.resize(size)
+    image=image.resize((2160, 3))
     img=np.asarray(image)
     img=img/255.0
     img=np.expand_dims(image, axis=0)
     img=np.expand_dims(image, axis=-1)
+    img=img.squeeze()
     prediction=model.predict(img)
     return prediction
   
