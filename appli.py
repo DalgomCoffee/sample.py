@@ -36,14 +36,17 @@ if uploaded_file is not None:
 
         # Make prediction
         prediction = predict(image)
-        predicted_class_index = np.argmax(prediction, axis=1)[0]
-        predicted_class = class_names[predicted_class_index]
+        top_classes_indices = np.argsort(prediction[0])[::-1][:3]  # Get indices of top 3 predictions
+        top_classes = [class_names[i] for i in top_classes_indices]
+        top_probs = [prediction[0][i] for i in top_classes_indices]
 
-        # Display prediction and class probabilities
-        st.success(f"Prediction: {predicted_class}")
-        st.write("Class Probabilities:")
-        for i, prob in enumerate(prediction[0]):
-            st.write(f"{class_names[i]}: {prob:.2f}")
+        # Display top predictions
+        st.success("Top Predictions:")
+        for i, (pred_class, prob) in enumerate(zip(top_classes, top_probs), 1):
+            st.write(f"{i}. {pred_class}: {prob:.2f}")
+
+        # Visualize predictions
+        st.bar_chart({class_name: prob for class_name, prob in zip(top_classes, top_probs)})
 
     except (UnidentifiedImageError, Exception) as e:
         st.error("An error occurred during image processing or prediction. Please try again.")
@@ -53,5 +56,5 @@ if uploaded_file is not None:
 st.markdown("""
 ### Instructions:
 1. Upload the weather image (jpg, png, jpeg).
-2. The model will predict the weather condition.
+2. The model will predict the top 3 weather conditions along with their probabilities.
 """)
