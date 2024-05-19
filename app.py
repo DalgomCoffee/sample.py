@@ -17,14 +17,19 @@ file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 from PIL import Image,ImageOps
 import numpy as np
 
-def import_and_predict(image_data,model):
-    image=image.resize((2160, 3))
-    image=np.array(image)
-    image=image/255.0
-    image=np.expand_dims(image, axis=0)
-    img=np.expand_dims(image, axis=-1)
-    img=np.reshape(img, (1, 2160, 3, 1))
-    prediction=model.predict(img)
+def import_and_predict(image_data, model):
+    if isinstance(image_data, str):
+        with open(image_data, 'rb') as f:
+            image = Image.open(f)
+    else:
+        image = Image.open(io.BytesIO(image_data))
+    image = image.resize((2160, 3))
+    img = np.array(image)
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
+    img = np.expand_dims(img, axis=-1)
+    img = np.reshape(img, (1, 2160, 3, 1))
+    prediction = model.predict(img)
     return prediction
   
 if file is None:
