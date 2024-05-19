@@ -20,6 +20,7 @@ def import_and_predict(image_data,model):
     size=(60,40)
     image=ImageOps.fit(image_data,size,Image.LANCZOS)
     img=np.asarray(image)
+    img=img / 255.0
     img_reshape=img[np.newaxis,...]
     prediction=model.predict(img_reshape)
     return prediction
