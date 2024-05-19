@@ -1,6 +1,8 @@
 import streamlit as st
 import tensorflow as tf
 import cv2
+import io
+import base64
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -12,7 +14,7 @@ st.write("""
 # Plant Leaf Detection System"""
 )
 
-file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
+file=st.file_uploader("Choose plant photo from computer",type=["jpg","png","jpeg"])
 
 from PIL import Image,ImageOps
 import numpy as np
