@@ -35,7 +35,8 @@ if uploaded_file is not None:
  
 st.markdown("""
 ### Instructions:
-1. Upload the weather image (jpg, png, jpeg)."""""
+1. Upload the weather image (jpg, png, jpeg).
+
 2.Prediction will display
 """)
 
