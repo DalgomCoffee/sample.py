@@ -1,33 +1,32 @@
 import streamlit as st
 import tensorflow as tf
-from tensorflow.keras.models import load_model
+
+@st.cache(allow_output_mutation=True)
+def load_model():
+  model=tf.keras.models.load_model('finaltrain.h5')
+  return model
+model=load_model()
+st.write("""
+# Plant Leaf Detection System"""
+)
+file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
+
+import cv2
+from PIL import Image,ImageOps
 import numpy as np
-
-st.title('TensorFlow with Streamlit')
-st.write(f'TensorFlow version: {tf.__version__}')
-
-# Load the trained model
-model = load_model('finaltrain.h5')
-
-# Function to make predictions
-def predict(input_data):
-    return model.predict(input_data)
-
-# Streamlit app
-st.title("My Keras Model Prediction App")
-
-# Input fields for user data
-st.header("Enter input data for prediction")
-
-# Assuming your model takes three numerical inputs
-input1 = st.number_input("Input 1", value=0.0)
-input2 = st.number_input("Input 2", value=0.0)
-input3 = st.number_input("Input 3", value=0.0)
-
-# Make a numpy array from the inputs
-input_data = np.array([[input1, input2, input3]])
-
-# When the user clicks the 'Predict' button
-if st.button("Predict"):
-    prediction = predict(input_data)
-    st.write(f"The predicted value is: {prediction[0][0]}")
+def import_and_predict(image_data,model):
+    size=(64,64)
+    image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
+    img=np.asarray(image)
+    img_reshape=img[np.newaxis,...]
+    prediction=model.predict(img_reshape)
+    return prediction
+if file is None:
+    st.text("Please upload an image file")
+else:
+    image=Image.open(file)
+    st.image(image,use_column_width=True)
+    prediction=import_and_predict(image,model)
+    class_names=['Rain','Shine','Cloudy','Sunrise']
+    string="OUTPUT : "+class_names[np.argmax(prediction)]
+    st.success(string)
