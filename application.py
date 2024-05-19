@@ -8,7 +8,7 @@ from PIL import Image, UnidentifiedImageError
 model = load_model('finaltrain.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
-def preprocess_image(image, target_size=(224, 224)):
+def preprocess_image(image, target_size=(60, 40)):
     """
     Preprocess the image to the required input shape of the model.
 
@@ -20,9 +20,10 @@ def preprocess_image(image, target_size=(224, 224)):
         np.ndarray: The preprocessed image ready for prediction.
     """
     image = image.resize(target_size)
-    image = image.convert('RGB')  # Ensure image has 3 channels (RGB)
+    image = image.convert('L')  # Convert to grayscale
     image = np.array(image)
     image = image / 255.0  # Normalize the image to [0, 1]
+    image = image.flatten()  # Flatten the image to shape (2400,)
     image = np.expand_dims(image, axis=0)  # Add batch dimension
     return image
 
