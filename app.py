@@ -23,7 +23,7 @@ def import_and_predict(image_data,model):
     img=np.asarray(image)
     img_flattened=img.flatten()
     img_reshaped=img_flattened.reshape(1, -1)
-    prediction=model.predict(img_reshape)
+    prediction=model.predict(img_reshaped)
     return prediction
   
 if file is None:
