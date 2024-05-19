@@ -2,8 +2,6 @@ import streamlit as st
 import tensorflow as tf
 import cv2
 import io
-from PIL import Image, ImageOps
-import numpy as np
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -17,8 +15,12 @@ st.write("""
 
 file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 
+from PIL import Image,ImageOps
+import numpy as np
+
 def import_and_predict(image_data, model):
-    image = Image.open(io.BytesIO(image_data))
+    file.seek(0)
+    image = Image.open(file)
     image = image.resize((2160, 3))
     img = np.array(image)
     img = img / 255.0
@@ -33,7 +35,7 @@ if file is None:
 else:
     image=Image.open(file)
     st.image(image,use_column_width=True)
-    prediction=import_and_predict(file.read(),model)
+    prediction=import_and_predict(file,model)
     class_names=['Rain','Shine','Cloudy','Sunrise']
     string="OUTPUT : "+class_names[np.argmax(prediction)]
     st.success(string)
