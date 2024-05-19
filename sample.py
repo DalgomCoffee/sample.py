@@ -10,7 +10,7 @@ model = load_model('finaltrain.h5')
 
 # Function to preprocess the input image
 def preprocess_image(image, target_size=(60, 40)):
-    image = image.resize(target_size)
+    image = image.resize((60,40))
     image = np.array(image)
     image = image / 255.0  # Normalize the image
     image = np.expand_dims(image, axis=0)  # Add batch dimension
