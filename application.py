@@ -27,7 +27,7 @@ def predict(image):
     return model.predict(p_image)
 
 st.title("FINAL EXAM: Weather Prediction")
-uploaded_file = st.file_uploader("Upload a weather image", type=["jpg", "png", "jpeg"])
+file = st.file_uploader("Upload a weather image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
     try:
