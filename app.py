@@ -3,6 +3,9 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 import numpy as np
 
+st.title('TensorFlow with Streamlit')
+st.write(f'TensorFlow version: {tf.__version__}')
+
 # Load the trained model
 model = load_model('finaltrain.h5')
 
