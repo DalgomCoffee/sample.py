@@ -19,7 +19,7 @@ import numpy as np
 
 def import_and_predict(image_data,model):
     size=(60,40)
-    image=image_data.resize(size))
+    image=image_data.resize(size)
     img=np.asarray(image)
     img_reshape=img[np.newaxis,...]
     prediction=model.predict(img_reshape)
