@@ -17,12 +17,15 @@ def preprocess_image(image, target_size=(60, 40)):
         image = image.resize(target_size).convert('L')
         # Convert to numpy array and normalize pixel values
         image = np.array(image) / 255.0
-        # Flatten and add batch dimension
-        image = np.expand_dims(image, axis=0)
+        # Flatten the image array
+        image = image.flatten()
+        # Reshape to match the expected input shape of the model
+        image = np.reshape(image, (1, -1))
         return image
     except Exception as e:
         st.error(f"An error occurred during image preprocessing: {str(e)}")
         return None
+
 
 # Make predictions using the pre-trained model
 def predict(image):
