@@ -20,8 +20,11 @@ def predict_weather(image):
     processed_image = preprocess_image(image)
     prediction = model.predict(processed_image)
     predicted_class_index = np.argmax(prediction)
-    predicted_class = class_names[predicted_class_index]
-    return predicted_class
+    if predicted_class_index < len(class_names):
+        predicted_class = class_names[predicted_class_index]
+        return predicted_class
+    else:
+        return "Unknown"
 
 # Streamlit app
 st.title("Weather Prediction")
