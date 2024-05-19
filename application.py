@@ -7,6 +7,13 @@ from PIL import Image, UnidentifiedImageError
 model = load_model('bestmodel.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
+st.markdown("""
+### Instructions:
+1. Upload the weather image (jpg, png, jpeg).
+
+2.Prediction will display
+""")
+
 def preprocess_image(image, target_size=(60, 40)):
     image = image.resize(target_size)
     image = image.convert('L')  
@@ -36,10 +43,5 @@ if uploaded_file is not None:
         st.error("The uploaded file could not be identified as an image. Please upload a valid image file.")
  
 
-# Instructions for the user
-st.markdown("""
-### Instructions:
-1. Upload the weather image (jpg, png, jpeg).
 
-2.Prediction will display
-""")
+
