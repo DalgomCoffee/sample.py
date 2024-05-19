@@ -22,7 +22,7 @@ def import_and_predict(image_data,model):
     image=image_data.resize(size)
     img=np.asarray(image)
     img=img/255.0
-    img_reshaped=img.reshape(1,36*20*3)
+    img_reshaped=img.reshape(1,2160)
     prediction=model.predict(img_reshaped)
     return prediction
   
