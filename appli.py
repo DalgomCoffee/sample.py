@@ -31,7 +31,7 @@ if uploaded_file is not None:
 
         # Make prediction
         prediction = predict(image)
-        top_classes_indices = np.argsort(prediction[0])[::-1][:3]  # Get indices of top 3 predictions
+        top_classes_indices = np.argsort(prediction[0])[::-1][:3] 
         top_classes = [class_names[i] for i in top_classes_indices]
         top_probs = [prediction[0][i] for i in top_classes_indices]
        
