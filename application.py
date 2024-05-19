@@ -8,14 +8,13 @@ model = load_model('finaltrain.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
 def preprocess_image(image, target_size=(60, 40)):
-    try:
-        # Resize and convert to grayscale
-        image = image.resize(target_size).convert('L')
-        # Normalize pixel values
-        image = np.array(image) / 255.0
-        # Add batch dimension
-        image = np.expand_dims(image, axis=0)
-        return image
+    image = image.resize(target_size)
+    image = image.convert('L')  
+    image = np.array(image)
+    image = image / 255.0  
+    image = image.flatten()  
+    image = np.expand_dims(image, axis=-0)  
+    return image
     
 def predict(image):
     p_image = preprocess_image(image)
