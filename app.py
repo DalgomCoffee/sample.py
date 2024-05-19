@@ -23,7 +23,7 @@ def import_and_predict(image_data,model):
     image=image/255.0
     image=np.expand_dims(image, axis=0)
     img=np.expand_dims(image, axis=-1)
-    img=img.squeeze()
+    img=np.reshape(img, (1, 2160, 3, 1))
     prediction=model.predict(img)
     return prediction
   
