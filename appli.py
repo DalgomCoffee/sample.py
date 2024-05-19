@@ -20,7 +20,7 @@ def predict(image):
     p_image = preprocess_image(image)
     return model.predict(p_image)
 
-st.title("Final Exam: Model Deployment in the Cloud")
+st.title("Weather Prediction")
 
 uploaded_file = st.file_uploader("Upload a weather image", type=["jpg", "png", "jpeg"])
 
