@@ -24,6 +24,8 @@ def predict_weather(image):
         predicted_class = class_names[predicted_class_index]
         return predicted_class
     else:
+        print("Predicted class index:", predicted_class_index)
+        print("Length of class_names list:", len(class_names))
         return "Unknown"
 
 # Streamlit app
