@@ -4,7 +4,7 @@ from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 
-model = load_model('finaltrain.h5')
+model = load_model('model.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
 def preprocess_image(image, target_size=(40, 60)):
