@@ -20,7 +20,7 @@ import numpy as np
 def import_and_predict(image_data,model):
     image=image.resize((2160, 3))
     image=np.array(image)
-    image=img/255.0
+    image=image/255.0
     image=np.expand_dims(image, axis=0)
     img=np.expand_dims(image, axis=-1)
     img=img.squeeze()
