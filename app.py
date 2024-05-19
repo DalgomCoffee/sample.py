@@ -21,7 +21,7 @@ import numpy as np
 def import_and_predict(image_data, model):
     file.seek(0)
     image = Image.open(file)
-    image = image.resize((2160, 3))
+    image = image.resize((60, 40))
     img = np.array(image)
     img = img / 255.0
     img = np.expand_dims(img, axis=0)
