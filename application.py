@@ -10,7 +10,7 @@ class_names = ['Rainy', 'Shine', 'Cloudy', 'Sunrise']
 # Preprocess the image for MobileNetV2
 def preprocess_image(image):
     img = image.resize((224, 224))
-    img = img.convert('RGB')
+    img = img.convert('RGB')  # Ensure image has 3 channels
     img_array = np.array(img)
     img_array = img_array / 255.0
     img_array = np.expand_dims(img_array, axis=0)
