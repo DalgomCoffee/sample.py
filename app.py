@@ -17,13 +17,22 @@ st.write("""
 file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 
 def import_and_predict(image_data,model):
-    expected_shape = model.input_shape[1]
-    width, height = int(np.sqrt(expected_shape // 3)), int(np.sqrt(expected_shape // 3))
+    input_shape = model.input_shape[1:]
+  
+if len(input_shape) == 1:
+    expected_pixels = input_shape[0]
+    width = height = int(np.sqrt(expected_pixels // 3))
     size=(width,height)
     image=ImageOps.fit(image_data,size,Image.LANCZOS)
     img=np.asarray(image)
     img=img / 255.0
     img_reshape=img.reshape((1, -1))
+else:
+    size = input_shape[:2]
+    image = ImageOps.fit(image_data, size, Image.LANCZOS)
+    img = np.asarray(image)
+    img = img / 255.0  # Normalize the image
+    img_reshape = img[np.newaxis, ...]
     prediction=model.predict(img_reshape)
     return prediction
   
