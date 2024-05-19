@@ -4,37 +4,34 @@ from tensorflow.keras.models import load_model
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 
-# Load the trained model
+# Load the trained model and class names
 model = load_model('finaltrain.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
-# Function to preprocess the input image
+# Preprocess the image
 def preprocess_image(image, target_size=(40, 60)):
     image = image.resize(target_size)
     image = image.convert('L')  # Convert to grayscale
     image = np.array(image)
-    image = image / 255.0  # Normalize the image
-    image = image.flatten()  # Flatten the image to a 1D array of size 2400
+    image = image / 255.0  # Normalize pixel values
+    image = image.flatten()  # Flatten image array
     image = np.expand_dims(image, axis=0)  # Add batch dimension
     return image
 
-# Function to make predictions
+# Function to predict the class of the uploaded image
 def predict(image):
     p_image = preprocess_image(image)
     return model.predict(p_image)
 
-# Streamlit app
+# Streamlit app layout
 st.title("Final Exam: Model Deployment in the Cloud")
 
-# Upload image
+# File uploader
 uploaded_file = st.file_uploader("Upload a weather image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
     try:
-        # Read the image file
         image = Image.open(uploaded_file)
-        
-        # Display the uploaded image
         st.image(image, caption="Uploaded Image", use_column_width=True)
 
         # Make prediction
@@ -42,16 +39,19 @@ if uploaded_file is not None:
         predicted_class_index = np.argmax(prediction, axis=1)[0]
         predicted_class = class_names[predicted_class_index]
 
-        # Display the prediction
+        # Display prediction and class probabilities
         st.success(f"Prediction: {predicted_class}")
+        st.write("Class Probabilities:")
+        for i, prob in enumerate(prediction[0]):
+            st.write(f"{class_names[i]}: {prob:.2f}")
 
-    except UnidentifiedImageError:
-        st.error("The uploaded file could not be identified as an image. Please upload a valid image file.")
- 
+    except (UnidentifiedImageError, Exception) as e:
+        st.error("An error occurred during image processing or prediction. Please try again.")
+        st.error(str(e))
 
-# Instructions for the user
+# Instructions
 st.markdown("""
 ### Instructions:
 1. Upload the weather image (jpg, png, jpeg).
-2. Wait for the prediction to be displayed.
+2. The model will predict the weather condition.
 """)
