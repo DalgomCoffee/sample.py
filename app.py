@@ -19,9 +19,9 @@ import numpy as np
 
 def import_and_predict(image_data,model):
     image=image.resize((2160, 3))
-    img=np.asarray(image)
-    img=img/255.0
-    img=np.expand_dims(image, axis=0)
+    image=np.array(image)
+    image=img/255.0
+    image=np.expand_dims(image, axis=0)
     img=np.expand_dims(image, axis=-1)
     img=img.squeeze()
     prediction=model.predict(img)
