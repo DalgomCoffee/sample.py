@@ -13,7 +13,7 @@ def preprocess_image(image, target_size=(60, 40)):
     image = np.array(image)
     image = image / 255.0  
     image = image.flatten()  
-    image = np.expand_dims(image, axis=1)  
+    image = np.expand_dims(image, axis=-1)  
     return image
 def predict(image):
     p_image = preprocess_image(image)
