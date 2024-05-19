@@ -1,5 +1,5 @@
 streamlit
-tensorflow
+tensorflow==2.9.0
 pandas
 numpy
 scikit-learn
