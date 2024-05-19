@@ -9,7 +9,7 @@ from PIL import Image
 model = load_model('finaltrain.h5')
 
 # Function to preprocess the input image
-def preprocess_image(image, target_size=(64, 64)):
+def preprocess_image(image, target_size=(60, 40)):
     image = image.resize(target_size)
     image = np.array(image)
     image = image / 255.0  # Normalize the image
