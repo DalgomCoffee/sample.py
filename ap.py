@@ -11,13 +11,13 @@ def load_model():
   
 model=load_model()
 st.write("""
-# Plant Leaf Detection System"""
+# FINAL EXAM WEATHER PREDICTION"""
 )
 
 file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 
 def import_and_predict(image_data,model):
-    size=(60,40)
+    size=(40,60)
     image=ImageOps.fit(image_data,size,Image.LANCZOS)
     img=np.asarray(image)
     img_reshape=img[np.newaxis,...]
