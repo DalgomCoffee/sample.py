@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image, UnidentifiedImageError
 
 model = load_model('finaltrain.h5')
-class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
+class_names = ['Cloudy', 'Shine', 'Rain', 'Sunrise']
 
 def preprocess_image(image, target_size=(60, 40)):
     image = image.resize(target_size)
