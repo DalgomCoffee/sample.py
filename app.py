@@ -22,9 +22,8 @@ import numpy as np
 def import_and_predict(image_data, model):
     if isinstance(image_data, str):
         with open(image_data, 'rb') as f:
-            image = Image.open(f)
-    else:
-        image = Image.open(io.BytesIO(image_data))
+            image_data = f.read()
+    image = Image.open(io.BytesIO(image_data))
     image = image.resize((2160, 3))
     img = np.array(image)
     img = img / 255.0
