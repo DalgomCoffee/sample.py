@@ -19,7 +19,7 @@ file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 def import_and_predict(image_data,model):
     expected_shape = model.input_shape[5]
     width, height = int(np.sqrt(expected_shape // 3)), int(np.sqrt(expected_shape // 3))
-    size=(60,40)
+    size=(width,height)
     image=ImageOps.fit(image_data,size,Image.LANCZOS)
     img=np.asarray(image)
     img=img / 255.0
