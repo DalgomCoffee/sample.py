@@ -1,44 +1,43 @@
 import streamlit as st
 import tensorflow as tf
-from tensorflow.keras.models import load_model
-import numpy as np
 from PIL import Image, UnidentifiedImageError
+import numpy as np
 
-model = load_model('finaltrain.h5')
-class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
+# Load the pre-trained MobileNetV2 model
+model = tf.keras.applications.MobileNetV2(weights='imagenet', include_top=True, input_shape=(224, 224, 3))
+class_names = ['Rainy', 'Shine', 'Cloudy', 'Sunrise']
 
-def preprocess_image(image, target_size=(60, 40)):
-    image = image.resize(target_size)
-    image = image.convert('L')  
-    image = np.array(image)
-    image = image / 255.0  
-    image = image.flatten()  
-    image = np.expand_dims(image, axis=-0)  
-    return image
-    
-def predict(image):
-    p_image = preprocess_image(image)
-    return model.predict(p_image)
+# Preprocess the image for MobileNetV2
+def preprocess_image(image):
+    img = image.resize((224, 224))
+    img_array = np.array(img)
+    img_array = img_array / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
+    return img_array
 
-st.title("FINAL EXAM: WEATHER PREDICTION")
+# Predict the weather condition
+def predict_weather(image):
+    processed_image = preprocess_image(image)
+    prediction = model.predict(processed_image)
+    predicted_class_index = np.argmax(prediction)
+    predicted_class = class_names[predicted_class_index]
+    return predicted_class
+
+# Streamlit app
+st.title("Weather Prediction")
 uploaded_file = st.file_uploader("Upload a weather image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
         st.image(image, caption="Uploaded Image", use_column_width=True)
-        prediction = predict(image)
-        
-        prediction=predict(image)
-        predicted_class_index = np.argmax(prediction, axis=1)[0]
-        predicted_class = class_names[predicted_class_index]
-        st.success(f"Prediction: {predicted_class}")
+        weather_prediction = predict_weather(image)
+        st.success(f"Predicted Weather Condition: {weather_prediction}")
     except UnidentifiedImageError:
-        st.error("Pls put valid image.")
- 
+        st.error("Please upload a valid image.")
+
 st.markdown("""
 ### Instructions:
 1. Upload the weather image (jpg, png, jpeg).
-
-2.Prediction will display
+2. The predicted weather condition will be displayed as Rainy, Shine, Cloudy, or Sunrise.
 """)
