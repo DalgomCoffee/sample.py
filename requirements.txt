@@ -4,4 +4,4 @@ pandas
 numpy
 scikit-learn
 Pillow
-opencv-python-
+opencv-python-headless
