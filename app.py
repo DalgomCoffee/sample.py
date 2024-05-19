@@ -9,7 +9,7 @@ model=load_model()
 st.write("""
 # Plant Leaf Detection System"""
 )
-file=st.file_uploader("Choose plant photo from computer",type=["jpg"])
+file=st.file_uploader("Choose plant photo from computer",type=["jpg","png")
 
 import cv2
 from PIL import Image,ImageOps
