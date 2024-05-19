@@ -28,14 +28,14 @@ def import_and_predict(image_data, model):
         expected_pixels = input_shape[0]
         width = height = int(np.sqrt(expected_pixels // 3))  # Assuming 3 channels (RGB)
         size = (width, height)
-        image = ImageOps.fit(image_data, size, Image.LANCZOS)
+        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
         img = np.asarray(image)
         img = img / 255.0  # Normalize the image
         img_reshape = img.reshape((1, -1))  # Flatten the image
     else:
         # If the input shape is not flattened, assume it to be (height, width, channels)
         size = input_shape[:2]
-        image = ImageOps.fit(image_data, size, Image.LANCZOS)
+        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
         img = np.asarray(image)
         img = img / 255.0  # Normalize the image
         img_reshape = img[np.newaxis, ...]  # Add batch dimension
