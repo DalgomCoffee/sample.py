@@ -19,8 +19,8 @@ file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 def import_and_predict(image_data,model):
     expected_shape = model.input_shape[1]
     width, height = int(np.sqrt(expected_shape)), int(np.sqrt(expected_shape))
-    size = (width,height)
-    image=ImageOps.fit(image_data,size,Image.LANCZOS)
+    
+    image=ImageOps.fit(image_data,Image.LANCZOS)
     img=np.asarray(image)
     img=img / 255.0
     img_reshape=img.reshape((1, -1))
