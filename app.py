@@ -21,12 +21,12 @@ file = st.file_uploader("Choose plant photo from computer", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
     # Determine the input shape expected by the model
-    input_shape = model.input_shape[1:]
+    input_shape = model.input_shape[1:]  # Exclude the batch dimension
     
     # If the input shape is flattened (e.g., (2400,)), we need to handle it differently
     if len(input_shape) == 1:
         expected_pixels = input_shape[0]
-        width = height = int(np.sqrt(expected_pixels // 3))
+        width = height = int(np.sqrt(expected_pixels // 3))  # Assuming 3 channels (RGB)
         size = (width, height)
         image = ImageOps.fit(image_data, size, Image.LANCZOS)
         img = np.asarray(image)
