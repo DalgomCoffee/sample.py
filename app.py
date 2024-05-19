@@ -3,17 +3,17 @@ import tensorflow as tf
 import cv2
 import io
 
-@st.cache(allow_output_mutation=True)
+
 def load_model():
-  model=tf.keras.models.load_model('finaltrain.h5')
+  model=tf.keras.models.load_model('bestmodel.h5')
   return model
 
-model=load_model()
+model=load_model('bestmodel.h5')
 st.write("""
 # Plant Leaf Detection System"""
 )
 
-file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
+uploaded_file=st.file_uploader("Choose weather photo ",type=["jpg","png","jpeg"])
 
 from PIL import Image,ImageOps
 import numpy as np
