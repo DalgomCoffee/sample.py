@@ -22,8 +22,9 @@ def import_and_predict(image_data,model):
     image=image_data.resize(size)
     img=np.asarray(image)
     img=img/255.0
-    img_reshaped=img.reshape(1,60*40*3)
-    prediction=model.predict(img_reshaped)
+    img=np.expand_dims(image, axis=0)
+    img=np.expand_dims(image, axis=-1)
+    prediction=model.predict(img)
     return prediction
   
 if file is None:
