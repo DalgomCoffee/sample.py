@@ -13,7 +13,7 @@ def preprocess_image(image, target_size=(60, 40)):
     image = np.array(image)
     image = image / 255.0  
     image = image.flatten()  
-    image = np.expand_dims(image, axis=0)  
+    image = np.expand_dims(image, axis=1)  
     return image
 def predict(image):
     p_image = preprocess_image(image)
@@ -31,7 +31,7 @@ if uploaded_file is not None:
         predicted_class = class_names[predicted_class_index]
         st.success(f"Prediction: {predicted_class}")
     except UnidentifiedImageError:
-        st.error("The uploaded file could not be identified as an image. Please upload a valid image file.")
+        st.error("Pls put valid image.")
  
 st.markdown("""
 ### Instructions:
