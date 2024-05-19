@@ -7,7 +7,7 @@ from PIL import Image, UnidentifiedImageError
 model = load_model('bestmodel.h5')
 class_names = ['Rain', 'Shine', 'Cloudy', 'Sunrise']
 
-def preprocess_image(image, target_size=(40, 60)):
+def preprocess_image(image, target_size=(60, 40)):
     image = image.resize(target_size)
     image = image.convert('L')  
     image = np.array(image)
