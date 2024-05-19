@@ -33,8 +33,9 @@ else:
     img = np.asarray(image)
     img = img / 255.0  # Normalize the image
     img_reshape = img[np.newaxis, ...]
-    prediction=model.predict(img_reshape)
-    return prediction
+  
+prediction=model.predict(img_reshape)
+return prediction
   
 if file is None:
     st.text("Please upload an image file")
