@@ -21,7 +21,7 @@ def import_and_predict(image_data,model):
     size=(60,40)
     image=image_data.resize(size)
     img=np.asarray(image)
-    img_flattened=img.flatten()
+    img_reshape=img.reshape(-1)
     img_reshape=img_flattened[np.newaxis,...]
     prediction=model.predict(img_reshape)
     return prediction
